@@ -1,0 +1,42 @@
+set cut_paste_input [stack 0]
+version 15.0 v3
+push $cut_paste_input
+Camera3 {
+ translate {{"lerp(\[value \[value CameraMixControl.cam1_name].translate.x], \[value \[value CameraMixControl.cam2_name].translate.x], CameraMixControl.dissolve)"} {"lerp(\[value \[value CameraMixControl.cam1_name].translate.y], \[value \[value CameraMixControl.cam2_name].translate.y], CameraMixControl.dissolve)"} {"lerp(\[value \[value CameraMixControl.cam1_name].translate.z], \[value \[value CameraMixControl.cam2_name].translate.z], CameraMixControl.dissolve)"}}
+ rotate {{"lerp(\[value \[value CameraMixControl.cam1_name].rotate.x], \[value \[value CameraMixControl.cam2_name].rotate.x], CameraMixControl.dissolve)"} {"lerp(\[value \[value CameraMixControl.cam1_name].rotate.y], \[value \[value CameraMixControl.cam2_name].rotate.y], CameraMixControl.dissolve)"} {"lerp(\[value \[value CameraMixControl.cam1_name].rotate.z], \[value \[value CameraMixControl.cam2_name].rotate.z], CameraMixControl.dissolve)"}}
+ scaling {{"lerp(\[value \[value CameraMixControl.cam1_name].scaling.x], \[value \[value CameraMixControl.cam2_name].scaling.x], CameraMixControl.dissolve)\n"} {"lerp(\[value \[value CameraMixControl.cam1_name].scaling.y], \[value \[value CameraMixControl.cam2_name].scaling.y], CameraMixControl.dissolve)\n"} {"lerp(\[value \[value CameraMixControl.cam1_name].scaling.z], \[value \[value CameraMixControl.cam2_name].scaling.z], CameraMixControl.dissolve)\n"}}
+ focal {{"lerp(\[value \[value CameraMixControl.cam1_name].focal], \[value \[value CameraMixControl.cam2_name].focal], CameraMixControl.dissolve)\n"}}
+ haperture {{"lerp(\[value \[value CameraMixControl.cam1_name].haperture], \[value \[value CameraMixControl.cam2_name].haperture], CameraMixControl.dissolve)\n"}}
+ vaperture {{"lerp(\[value \[value CameraMixControl.cam1_name].vaperture], \[value \[value CameraMixControl.cam2_name].vaperture], CameraMixControl.dissolve)\n"}}
+ near {{"lerp(\[value \[value CameraMixControl.cam1_name].near], \[value \[value CameraMixControl.cam2_name].near], CameraMixControl.dissolve)"}}
+ far {{"lerp(\[value \[value CameraMixControl.cam1_name].far], \[value \[value CameraMixControl.cam2_name].far], CameraMixControl.dissolve)\n"}}
+ win_translate {{"lerp(\[value \[value CameraMixControl.cam1_name].win_translate.u], \[value \[value CameraMixControl.cam2_name].win_translate.u], CameraMixControl.dissolve)\n"} {"lerp(\[value \[value CameraMixControl.cam1_name].win_translate.v], \[value \[value CameraMixControl.cam2_name].win_translate.v], CameraMixControl.dissolve)\n"}}
+ win_scale {{"lerp(\[value \[value CameraMixControl.cam1_name].win_scale.u], \[value \[value CameraMixControl.cam2_name].win_scale.u], CameraMixControl.dissolve)\n"} {"lerp(\[value \[value CameraMixControl.cam1_name].win_scale.v], \[value \[value CameraMixControl.cam2_name].win_scale.v], CameraMixControl.dissolve)\n"}}
+ winroll {{"lerp(\[value \[value CameraMixControl.cam1_name].winroll], \[value \[value CameraMixControl.cam2_name].winroll], CameraMixControl.dissolve)\n"}}
+ focal_point {{"lerp(\[value \[value CameraMixControl.cam1_name].focal_point], \[value \[value CameraMixControl.cam2_name].focal_point], CameraMixControl.dissolve)\n"}}
+ fstop {{"lerp(\[value \[value CameraMixControl.cam1_name].fstop], \[value \[value CameraMixControl.cam2_name].fstop], CameraMixControl.dissolve)\n"}}
+ shutter {{"lerp(\[value \[value CameraMixControl.cam1_name].shutter], \[value \[value CameraMixControl.cam2_name].shutter], CameraMixControl.dissolve)\n"}}
+ name Lerp_CAM
+ note_font "Bitstream Vera Sans Bold"
+ note_font_size 20
+ selected true
+ xpos -415
+ ypos -54
+}
+NoOp {
+ inputs 0
+ name CameraMixControl
+ note_font "Verdana Bold"
+ note_font_size 15
+ selected true
+ xpos -425
+ ypos -132
+ addUserKnob {20 User}
+ addUserKnob {26 _3 l "" +STARTLINE T "Input the name of each camera. This will expression link your cameras\nto the \"Lerp_CAM\". Use the dissolve slider to lerp between them.\nNow you can easily transition from one camera to another. \n"}
+ addUserKnob {26 ""}
+ addUserKnob {1 cam1_name l "Camera 1 Name"}
+ addUserKnob {1 cam2_name l "Camera 2 Name"}
+ addUserKnob {7 dissolve}
+ addUserKnob {26 ""}
+ addUserKnob {26 credits l "" +STARTLINE T "<font size=3>Alex Villabon - 2024 - </font><a href=\"https://youtu.be/VtZbtZcsn58\"><font color=\"#bbbbbb\" size=3>YouTube Tutorial</a></font>"}
+}
