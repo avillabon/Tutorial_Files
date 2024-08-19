@@ -1,0 +1,356 @@
+#! C:/Program Files/Nuke15.1v1/nuke-15.1.1.dll -nx
+version 15.1 v1
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="-1" y="-8" w="3840" h="2137" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1835" stretch="1"/>
+            <splitter orientation="2">
+                <split size="2096"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+            </splitter>
+            <split size="719"/>
+            <splitter orientation="2">
+                <split size="1605"/>
+                <dock id="" activePageId="Properties.1">
+                    <page id="Properties.1"/>
+                    <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                </dock>
+                <split size="487"/>
+                <dock id="" activePageId="Curve Editor.1">
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="1234"/>
+            <dock id="" activePageId="DAG.1" focus="true">
+                <page id="DAG.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name "D:/_Work/_Sandbox/render wedges/render_wedges.nk"
+ frame 21
+ last_frame 250
+ lock_range true
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT scene_linear
+ monitorLut "sRGB (default)"
+ monitorOutLUT "rec709 (default)"
+ int8Lut matte_paint
+ int16Lut texture_paint
+ logLut compositing_log
+ floatLut scene_linear
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode24
+ tile_color 0xa80000ff
+ note_font_size 42
+ xpos 321
+ ypos 1371
+ bdwidth 129
+ bdheight 186
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode31
+ tile_color 0x2c8e1900
+ note_font_size 42
+ xpos 544
+ ypos 1376
+ bdwidth 122
+ bdheight 176
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode32
+ tile_color 0x37428e00
+ note_font_size 42
+ xpos 766
+ ypos 1375
+ bdwidth 118
+ bdheight 178
+}
+StickyNote {
+ inputs 0
+ name StickyNote1
+ label " nuke.toNode('wedgeSwitch')\['which'].setValue('0') "
+ note_font Verdana
+ note_font_size 40
+ xpos 132
+ ypos 1607
+}
+ColorWheel {
+ inputs 0
+ format "512 512 0 0 512 512 1 square_512"
+ gamma 0.45
+ name ColorWheel1
+ xpos 290
+ ypos -369
+}
+set Nfed8f000 [stack 0]
+Transform {
+ translate {243 27}
+ center {256 256}
+ name Transform2
+ xpos 620
+ ypos -129
+}
+Constant {
+ inputs 0
+ color {1 1 1 1}
+ name Constant4
+ xpos 565
+ ypos -633
+}
+Dot {
+ name Dot2
+ tile_color 0xcccccc00
+ xpos 599
+ ypos -270
+}
+set Nfed8ec00 [stack 0]
+Merge2 {
+ inputs 2
+ name Merge3
+ label "Mix: \[value mix]"
+ xpos 785
+ ypos -63
+}
+push $Nfed8f000
+Transform {
+ translate {437 -2.5}
+ center {256 256}
+ name Transform1
+ xpos 400
+ ypos -156
+}
+push $Nfed8ec00
+Merge2 {
+ inputs 2
+ name Merge2
+ label "Mix: \[value mix]"
+ xpos 565
+ ypos -63
+}
+push $Nfed8f000
+push $Nfed8ec00
+Merge2 {
+ inputs 2
+ name Merge1
+ label "Mix: \[value mix]"
+ xpos 345
+ ypos -63
+}
+Switch {
+ inputs 3
+ which {{parent.wedgeSwitch.which}}
+ patterns {
+  {i0 ""}
+  {i1 ""}
+  {i2 ""}
+ }
+ name Switch2
+ tile_color 0x8918a300
+ label "alt_\[value knob.which]"
+ note_font "Bitstream Vera Sans Bold"
+ note_font_size 18
+ note_font_color 0xffffffff
+ xpos 565
+ ypos 122
+}
+Dot {
+ name Dot1
+ tile_color 0x8918a300
+ xpos 599
+ ypos 354
+}
+set N94e4bc00 [stack 0]
+Grade {
+ white {0 0 1 1}
+ name Grade4
+ label "\[if \{ \[value mix] != 1 \} \{ return \"Mix: \[value mix]\" \} else \{ return \" \"\}]"
+ xpos 785
+ ypos 495
+ postage_stamp true
+}
+Reformat {
+ format "720 486 0 0 720 486 0.91 NTSC"
+ resize height
+ name Reformat3
+ xpos 785
+ ypos 609
+}
+NoOp {
+ name alt_2
+ tile_color 0xffff
+ note_font_size 18
+ xpos 785
+ ypos 756
+}
+push $N94e4bc00
+Grade {
+ white {0 1 0 1}
+ name Grade5
+ label "\[if \{ \[value mix] != 1 \} \{ return \"Mix: \[value mix]\" \} else \{ return \" \"\}]"
+ xpos 565
+ ypos 495
+ postage_stamp true
+}
+Reformat {
+ format "1024 1024 0 0 1024 1024 1 square_1K"
+ resize height
+ name Reformat2
+ xpos 565
+ ypos 609
+}
+NoOp {
+ name alt_1
+ tile_color 0xff00ff
+ note_font_size 18
+ xpos 565
+ ypos 756
+}
+push $N94e4bc00
+Grade {
+ white {1 0 0 1}
+ name Grade6
+ label "\[if \{ \[value mix] != 1 \} \{ return \"Mix: \[value mix]\" \} else \{ return \" \"\}]"
+ xpos 345
+ ypos 495
+ postage_stamp true
+}
+Reformat {
+ name Reformat1
+ xpos 345
+ ypos 615
+}
+NoOp {
+ name alt_0
+ tile_color 0xff0000ff
+ note_font_size 18
+ xpos 345
+ ypos 756
+}
+Switch {
+ inputs 3
+ which {{parent.wedgeSwitch.which}}
+ patterns {
+  {i0 ""}
+  {i1 ""}
+  {i2 ""}
+ }
+ name Switch5
+ tile_color 0x8918a300
+ label "alt_\[value knob.which]"
+ note_font "Bitstream Vera Sans Bold"
+ note_font_size 18
+ note_font_color 0xffffffff
+ xpos 565
+ ypos 938
+}
+set Nb278de00 [stack 0]
+Dot {
+ name Dot62
+ tile_color 0x8918a300
+ xpos 599
+ ypos 1266
+}
+set N58806c00 [stack 0]
+Write {
+ channels rgba
+ file "D:/_Work/_Sandbox/render wedges/images/alt_1.####.jpg"
+ file_type jpeg
+ _jpeg_quality 1
+ checkHashOnRead false
+ version 15
+ ocioColorspace scene_linear
+ display default
+ view sRGB
+ beforeRender "nuke.toNode('wedgeSwitch')\['which'].setValue('1')"
+ name Write1
+ xpos 565
+ ypos 1467
+}
+push $N58806c00
+Dot {
+ name Dot65
+ tile_color 0x8918a300
+ xpos 819
+ ypos 1266
+}
+Write {
+ channels rgba
+ file "D:/_Work/_Sandbox/render wedges/images/alt_2.####.jpg"
+ file_type jpeg
+ _jpeg_quality 1
+ create_directories true
+ checkHashOnRead false
+ version 14
+ ocioColorspace scene_linear
+ display default
+ view sRGB
+ beforeRender "nuke.toNode('wedgeSwitch')\['which'].setValue('2')"
+ name Write2
+ xpos 785
+ ypos 1467
+}
+push $N58806c00
+Dot {
+ name Dot63
+ tile_color 0x8918a300
+ xpos 379
+ ypos 1266
+}
+Write {
+ channels rgba
+ file "D:/_Work/_Sandbox/render wedges/images/alt_0.####.jpg"
+ file_type jpeg
+ _jpeg_quality 1
+ checkHashOnRead false
+ version 15
+ ocioColorspace scene_linear
+ display default
+ view sRGB
+ beforeRender "nuke.toNode('wedgeSwitch')\['which'].setValue('0')"
+ name Write3
+ xpos 345
+ ypos 1467
+}
+push $Nb278de00
+Viewer {
+ frame 21
+ frame_range 1-250
+ viewerProcess "sRGB (default)"
+ monitorOutNDISenderName "NukeX - untitled - Viewer1"
+ monitorOutOutputTransform "rec709 (default)"
+ name Viewer1
+ xpos 180
+ ypos 1767
+ hide_input true
+}
+NoOp {
+ inputs 0
+ name wedgeSwitch
+ tile_color 0x8918a3ff
+ note_font "Bitstream Vera Sans Bold"
+ note_font_color 0xedededff
+ xpos 400
+ ypos 135
+ addUserKnob {20 User}
+ addUserKnob {7 which l Which}
+}
