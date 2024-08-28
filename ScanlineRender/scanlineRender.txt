@@ -1,0 +1,22 @@
+set cut_paste_input [stack 0]
+version 15.1 v1
+push 0
+push $cut_paste_input
+push 0
+ScanlineRender {
+ inputs 3
+ conservative_shader_sampling false
+ samples {{"\$gui?gui_samples:\nrender_samples"}}
+ motion_vectors_type distance
+ name ScanlineRender
+ label "GUI Samples: \[value samples]\nRender Samples: \[value render_samples]\n\[if \{ \[value antialiasing] != \"none\" \} \{ return \"Antialiasing: \[value antialiasing]\" \} else \{ return \" \"\}]\n\[if \{ \[value overscan] != \"0\" \} \{ return \"Overscan: \[value overscan]\" \} else \{ return \" \"\}]\n\n"
+ note_font "Verdana Bold"
+ selected true
+ xpos 510
+ ypos -645
+ addUserKnob {20 user l User}
+ addUserKnob {7 gui_samples l "GUI Samples"}
+ gui_samples 1
+ addUserKnob {7 render_samples l "Render Samples"}
+ render_samples 10
+}
