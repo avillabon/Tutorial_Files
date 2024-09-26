@@ -1,0 +1,407 @@
+#! C:/Program Files/Nuke15.1v1/nuke-15.1.1.dll -nx
+version 15.1 v1
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="-1" y="-8" w="3840" h="2137" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1835" stretch="1"/>
+            <splitter orientation="2">
+                <split size="2069"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="23"/>
+                <dock id=""/>
+            </splitter>
+            <split size="719"/>
+            <splitter orientation="2">
+                <split size="1605"/>
+                <dock id="" activePageId="Properties.1">
+                    <page id="Properties.1"/>
+                    <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                    <page id="uk.co.thefoundry.scripteditor.1"/>
+                </dock>
+                <split size="487"/>
+                <dock id="" activePageId="Curve Editor.1">
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="1234"/>
+            <dock id="" activePageId="DAG.1" focus="true">
+                <page id="DAG.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name D:/_Work/_Sandbox/facing_ratio/facing_ratio_v001.nk
+ frame 1011
+ first_frame 1001
+ last_frame 1100
+ format "2048 2048 0 0 2048 2048 1 square_2K"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT scene_linear
+ monitorLut "sRGB (default)"
+ monitorOutLUT "rec709 (default)"
+ int8Lut matte_paint
+ int16Lut texture_paint
+ logLut compositing_log
+ floatLut scene_linear
+}
+Camera2 {
+ inputs 0
+ translate {0 0 12}
+ name Camera3
+ xpos 5085
+ ypos -510
+}
+Dot {
+ name Dot9
+ tile_color 0x641300
+ xpos 5109
+ ypos -414
+}
+set Nacf08000 [stack 0]
+Constant {
+ inputs 0
+ channels rgb
+ color 0.01
+ name Constant3
+ xpos 5515
+ ypos -1545
+}
+Dot {
+ name Dot2
+ tile_color 0xcccccc00
+ xpos 5549
+ ypos -1398
+}
+set N6bf1b800 [stack 0]
+Dot {
+ name Dot13
+ tile_color 0xcccccc00
+ xpos 5439
+ ypos -1398
+}
+Sphere {
+ rows 300
+ columns 300
+ translate {0 0 -10}
+ rotate {0 90 0}
+ name Sphere3
+ xpos 5405
+ ypos -1305
+}
+set N6c034000 [stack 0]
+TransformGeo {
+ translate {3.5 -3.5 0}
+ name TransformGeo7
+ xpos 5295
+ ypos -1209
+}
+push $N6bf1b800
+Dot {
+ name Dot14
+ tile_color 0xcccccc00
+ xpos 5659
+ ypos -1398
+}
+Cylinder {
+ translate {-3.5 0 -10}
+ name Cylinder1
+ xpos 5625
+ ypos -1305
+}
+set N6bee6000 [stack 0]
+TransformGeo {
+ translate {3.5 3.5 0}
+ name TransformGeo6
+ xpos 5955
+ ypos -1209
+}
+push $N6bee6000
+TransformGeo {
+ translate {7 0 0}
+ name TransformGeo4
+ xpos 5845
+ ypos -1209
+}
+push $N6bee6000
+TransformGeo {
+ translate {3.5 -3.5 0}
+ name TransformGeo5
+ xpos 5735
+ ypos -1209
+}
+push $N6c034000
+TransformGeo {
+ translate {3.5 3.5 0}
+ name TransformGeo3
+ xpos 5185
+ ypos -1209
+}
+push $N6c034000
+TransformGeo {
+ translate {-3.5 -3.5 0}
+ name TransformGeo2
+ xpos 4965
+ ypos -1209
+}
+push 0
+push $N6bee6000
+push $N6c034000
+TransformGeo {
+ translate {-3.5 3.5 0}
+ name TransformGeo1
+ xpos 5075
+ ypos -1209
+}
+push $N6c034000
+Scene {
+ inputs 10
+ name Scene1
+ xpos 5525
+ ypos -1014
+}
+Dot {
+ name Dot15
+ tile_color 0x641300
+ xpos 5549
+ ypos -822
+}
+set N6bfc4000 [stack 0]
+push 0
+add_layer {pworld pworld.red pworld.green pworld.blue pworld.alpha}
+add_layer {nworld nworld.red nworld.green nworld.blue nworld.alpha}
+ScanlineRender {
+ inputs 3
+ conservative_shader_sampling false
+ shutteroffset centred
+ motion_vectors_type distance
+ output_shader_vectors true
+ P_channel pworld
+ N_channel nworld
+ name ScanlineRender2
+ xpos 5515
+ ypos -417
+}
+Dot {
+ name Dot17
+ tile_color 0x641300
+ xpos 5549
+ ypos -318
+}
+set N6bfc4800 [stack 0]
+Dot {
+ name Dot18
+ tile_color 0x641300
+ xpos 5824
+ ypos -318
+}
+Dot {
+ name Dot10
+ tile_color 0x641300
+ xpos 5824
+ ypos -222
+}
+set N6bfc5000 [stack 0]
+Dot {
+ name Dot4
+ tile_color 0x641300
+ xpos 5714
+ ypos -222
+}
+Shuffle {
+ in pworld
+ name Shuffle2
+ label "\[value in]\n\[value red] \[value green] \[value blue] \[value alpha]"
+ xpos 5680
+ ypos -189
+}
+Expression {
+ temp_name0 l
+ temp_expr0 sqrt(r*r+g*g+b*b)
+ expr0 -r/l
+ expr1 -g/l
+ expr2 -b/l
+ name Expression
+ xpos 5680
+ ypos -105
+}
+push $N6bfc5000
+Dot {
+ name Dot1
+ tile_color 0x641300
+ xpos 5934
+ ypos -222
+}
+Shuffle {
+ in nworld
+ name Shuffle4
+ label "\[value in]\n\[value red] \[value green] \[value blue] \[value alpha]"
+ xpos 5900
+ ypos -189
+}
+Expression {
+ temp_name0 l
+ temp_expr0 sqrt(r*r+g*g+b*b)
+ expr0 r/l
+ expr1 g/l
+ expr2 b/l
+ name Expression1
+ xpos 5900
+ ypos -105
+}
+MergeExpression {
+ inputs 2
+ expr0 1-(Ar*Br+Ag*Bg+Ab*Bb)
+ expr1 1-(Ar*Br+Ag*Bg+Ab*Bb)
+ expr2 1-(Ar*Br+Ag*Bg+Ab*Bb)
+ name MergeExpression3
+ xpos 5790
+ ypos -57
+}
+Grade {
+ blackpoint 0.15
+ gamma 0.35
+ white_clamp true
+ name Grade3
+ xpos 5790
+ ypos -9
+}
+Shuffle {
+ alpha red
+ name Shuffle3
+ label "\[value in]\n\[value red] \[value green] \[value blue] \[value alpha]"
+ xpos 5790
+ ypos 51
+}
+push $N6bfc4800
+Dot {
+ name Dot19
+ tile_color 0x641300
+ xpos 5219
+ ypos -318
+}
+set Nacf09400 [stack 0]
+push $Nacf08000
+CheckerBoard2 {
+ inputs 0
+ name CheckerBoard2
+ xpos 4305
+ ypos -729
+}
+Sphere {
+ uniform_scale 100
+ name Sphere4
+ xpos 4305
+ ypos -561
+}
+Reflection {
+ inputs 0
+ name Reflection2
+ xpos 4745
+ ypos -729
+}
+push $N6bfc4000
+Dot {
+ name Dot16
+ tile_color 0x641300
+ xpos 4614
+ ypos -822
+}
+ApplyMaterial {
+ inputs 2
+ name ApplyMaterial2
+ xpos 4580
+ ypos -729
+}
+Scene {
+ inputs 2
+ name Scene4
+ xpos 4590
+ ypos -582
+}
+push 0
+RayRender {
+ inputs 3
+ stochastic_samples 10
+ name RayRender1
+ xpos 4580
+ ypos -417
+}
+Copy {
+ inputs 2
+ from0 rgba.alpha
+ to0 rgba.alpha
+ name Copy1
+ xpos 4580
+ ypos -327
+}
+Premult {
+ name Premult1
+ xpos 4580
+ ypos -249
+}
+Dot {
+ name Dot21
+ tile_color 0xcccccc00
+ xpos 4614
+ ypos -102
+}
+set N6c12e800 [stack 0]
+Dot {
+ name Dot20
+ tile_color 0xcccccc00
+ xpos 4614
+ ypos 66
+}
+push $N6bfc4800
+Merge2 {
+ inputs 2+1
+ operation plus
+ output rgb
+ name Merge2
+ label "Mix: \[value mix]"
+ xpos 5515
+ ypos 57
+}
+Dot {
+ name Dot5
+ tile_color 0x4b5ec600
+ label Fresnel
+ note_font "Verdana Bold"
+ note_font_size 30
+ xpos 5549
+ ypos 258
+}
+push $N6c12e800
+push $Nacf09400
+Merge2 {
+ inputs 2
+ operation plus
+ output rgb
+ name Merge1
+ label "Mix: \[value mix]"
+ xpos 5185
+ ypos -111
+}
+Dot {
+ name Dot3
+ tile_color 0x4b5ec600
+ label Non-fresnel
+ note_font "Verdana Bold"
+ note_font_size 30
+ xpos 5219
+ ypos 258
+}
