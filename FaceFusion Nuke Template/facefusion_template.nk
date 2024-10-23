@@ -1,0 +1,687 @@
+#! C:/Program Files/Nuke15.1v1/nuke-15.1.1.dll -nx
+version 15.1 v1
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="-1" y="-8" w="3840" h="2137" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1835" stretch="1"/>
+            <splitter orientation="2">
+                <split size="2069"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="23"/>
+                <dock id=""/>
+            </splitter>
+            <split size="719"/>
+            <splitter orientation="2">
+                <split size="1605"/>
+                <dock id="" activePageId="Properties.1">
+                    <page id="Properties.1"/>
+                    <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                    <page id="uk.co.thefoundry.scripteditor.1"/>
+                </dock>
+                <split size="487"/>
+                <dock id="" activePageId="Curve Editor.1">
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="1234"/>
+            <dock id="" activePageId="DAG.1" focus="true">
+                <page id="DAG.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name D:/_Work/_Sandbox/facefussion/scripts/facefusion_v008.nk
+ frame 114
+ last_frame 120
+ lock_range true
+ format "3840 2160 0 0 3840 2160 1 UHD_4K"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT scene_linear
+ monitorLut "sRGB (default)"
+ monitorOutLUT "rec709 (default)"
+ int8Lut matte_paint
+ int16Lut texture_paint
+ logLut compositing_log
+ floatLut scene_linear
+}
+BackdropNode {
+ inputs 0
+ name Backdrop____FaceFusion_Output
+ tile_color 0x47594fff
+ label "   FaceFusion Beauty"
+ note_font "Arial Black"
+ note_font_size 40
+ note_font_color 0xffffffff
+ xpos -14
+ ypos 3985
+ appearance Border
+ bdwidth 799
+ bdheight 1054
+ z_order 3
+}
+BackdropNode {
+ inputs 0
+ name Backdrop____FaceFusion_Output1
+ tile_color 0x47594fff
+ label "   FaceFusion Matte"
+ note_font "Arial Black"
+ note_font_size 40
+ note_font_color 0xffffffff
+ xpos -1444
+ ypos 3985
+ appearance Border
+ bdwidth 799
+ bdheight 1054
+ z_order 3
+}
+BackdropNode {
+ inputs 0
+ name Backdrop____OUT
+ tile_color 0x474f59ff
+ label "   OUTPUT"
+ note_font "Arial Black"
+ note_font_size 40
+ note_font_color 0xffffffff
+ xpos 1902
+ ypos 9910
+ appearance Border
+ bdwidth 596
+ bdheight 436
+ z_order 3
+}
+BackdropNode {
+ inputs 0
+ name Backdrop____Plate
+ tile_color 0x594755ff
+ label "   Plate"
+ note_font "Arial Black"
+ note_font_size 80
+ note_font_color 0xffffffff
+ xpos 1800
+ ypos 4137
+ appearance Border
+ bdwidth 800
+ bdheight 894
+ z_order 3
+}
+BackdropNode {
+ inputs 0
+ name Backdrop____erjkchgd
+ tile_color 0x554759ff
+ label "   Re-interpolate"
+ note_font "Arial Black"
+ note_font_size 40
+ note_font_color 0xffffffff
+ xpos 58
+ ypos 6520
+ appearance Border
+ bdwidth 874
+ bdheight 688
+ z_order 3
+}
+BackdropNode {
+ inputs 0
+ name Backdrop____mbo
+ tile_color 0x484759ff
+ label "   Motion blur"
+ note_font "Arial Black"
+ note_font_size 40
+ note_font_color 0xffffffff
+ xpos 111
+ ypos 8992
+ appearance Border
+ bdwidth 548
+ bdheight 255
+ z_order 3
+}
+BackdropNode {
+ inputs 0
+ name Backdrop____mstte
+ tile_color 0x594f47ff
+ label "   Matte treatment"
+ note_font "Arial Black"
+ note_font_size 40
+ note_font_color 0xffffffff
+ xpos -1296
+ ypos 5776
+ appearance Border
+ bdwidth 502
+ bdheight 255
+ z_order 3
+}
+BackdropNode {
+ inputs 0
+ name Backdrop____precomp_here
+ tile_color 0x475659ff
+ label "   precomp here"
+ note_font "Arial Black"
+ note_font_size 40
+ note_font_color 0xffffffff
+ xpos 0
+ ypos 7426
+ appearance Border
+ bdwidth 771
+ bdheight 507
+ z_order 3
+}
+BackdropNode {
+ inputs 0
+ name Backdrop____Matte_Check
+ tile_color 0x666a7fff
+ label "   Matte Check"
+ note_font "Arial Black"
+ note_font_size 40
+ note_font_color 0xffffffff
+ xpos -520
+ ypos 5294
+ appearance Border
+ bdwidth 491
+ bdheight 260
+ z_order 6
+}
+BackdropNode {
+ inputs 0
+ name Backdrop____colo
+ tile_color 0x6c7f66ff
+ label "   Color and sharpness adjustments"
+ note_font "Arial Black"
+ note_font_size 40
+ note_font_color 0xffffffff
+ xpos 0
+ ypos 8276
+ appearance Border
+ bdwidth 770
+ bdheight 488
+ z_order 6
+}
+Read {
+ inputs 0
+ file_type mov
+ file "D:/C Extension/Downloads/e40ae276.mp4"
+ format "2560 1440 0 0 2560 1440 1 "
+ last 120
+ origlast 120
+ origset true
+ colorspace rec709
+ name Read36
+ label "\[if \{\[string match \"\[value first]\[value last]\" \"\[expr \[frames \{first\}]]\[expr \[frames \{last\}]]\"]\} \{return \"\"\} \{return \"\\n(Note: FrameRange Not Same As Project Setting)\"\}]"
+ xpos -1085
+ ypos 4221
+}
+Write {
+ file D:/_Work/_Sandbox/facefussion/nuke_renders/mattes/facefusion_matte_16bit_v001.####.png
+ file_type png
+ datatype "16 bit"
+ colorspace rec709
+ checkHashOnRead false
+ version 5
+ in_colorspace scene_linear
+ out_colorspace scene_linear
+ ocioColorspace scene_linear
+ display default
+ view sRGB
+ name Write3
+ xpos -1085
+ ypos 4371
+}
+Dot {
+ inputs 0
+ name Dot4
+ xpos 2194
+ ypos 4554
+}
+Write {
+ file D:/_Work/_Sandbox/facefussion/nuke_renders/plate/plate.####.png
+ file_type png
+ datatype "16 bit"
+ colorspace rec709
+ checkHashOnRead false
+ version 2
+ in_colorspace scene_linear
+ out_colorspace scene_linear
+ ocioColorspace scene_linear
+ display default
+ view sRGB
+ name Write4
+ xpos 2160
+ ypos 4635
+}
+Dot {
+ inputs 0
+ name Dot8
+ xpos -1051
+ ypos 4602
+}
+Grade {
+ whitepoint {0.916215241 0.9354535937 0.9310259223 0}
+ white_clamp true
+ name Grade3
+ label "\[if \{ \[value mix] != 1 \} \{ return \"Mix: \[value mix]\" \} else \{ return \" \"\}]"
+ xpos -1085
+ ypos 4791
+ disable true
+}
+Expression {
+ expr3 clamp(r)
+ name Expression2
+ tile_color 0xfefefeff
+ label "R to Alpha"
+ xpos -1085
+ ypos 5409
+}
+set N8c7a7000 [stack 0]
+Dot {
+ name Dot1
+ tile_color 0xfefefeff
+ xpos -1051
+ ypos 5706
+}
+Group {
+ name Keychew
+ label "Chew: \[value chew] | Soften: \[value soften]"
+ xpos -1085
+ ypos 5913
+ addUserKnob {20 KeyChew}
+ addUserKnob {7 chew l Chew R -100 100}
+ chew -15
+ addUserKnob {7 soften l Soften R 0 50}
+ soften 20
+ addUserKnob {6 invertAlpha l "Invert Alpha" +STARTLINE}
+ addUserKnob {6 matteMult l MatteMult +STARTLINE}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -16
+  ypos -192
+ }
+ Dot {
+  name Dot1
+  xpos 18
+  ypos -90
+ }
+set N8c7a7800 [stack 0]
+ Dot {
+  name Dot2
+  xpos 155
+  ypos -61
+ }
+push $N8c7a7800
+ Invert {
+  channels alpha
+  name Invert1
+  xpos 55
+  ypos -42
+ }
+push $N8c7a7800
+ Switch {
+  inputs 2
+  which {{chew>=0?0:1 i}}
+  patterns {
+   {i0 ""}
+   {i1 ""}
+  }
+  name Switch1
+  xpos -16
+  ypos 25
+ }
+ Blur {
+  channels alpha
+  size {{abs(chew) i}}
+  name Blur1
+  xpos -16
+  ypos 53
+ }
+ Multiply {
+  channels alpha
+  value {{max(Blur1.size*1.5,1) i}}
+  name Multiply1
+  xpos -16
+  ypos 95
+ }
+ Clamp {
+  channels alpha
+  minimum_enable false
+  name Clamp1
+  xpos -16
+  ypos 137
+ }
+ Gamma {
+  channels alpha
+  value {{relationCurve(abs(chew)) i}}
+  name Gamma1
+  xpos -16
+  ypos 179
+  addUserKnob {20 User}
+  addUserKnob {7 relationCurve}
+  relationCurve {{curve l 1 x5 0.95 0.8 x20 0.5 x40 0.3 x80 0.2 x200 0.1}}
+ }
+set N8c8f3000 [stack 0]
+ Merge2 {
+  inputs 2
+  operation minus
+  Achannels alpha
+  Bchannels alpha
+  output alpha
+  name Merge1
+  xpos 121
+  ypos 235
+ }
+ Clamp {
+  channels alpha
+  maximum_enable false
+  name Clamp2
+  xpos 121
+  ypos 277
+ }
+push $N8c8f3000
+ Switch {
+  inputs 2
+  which {{chew>=0?0:1 i}}
+  patterns {
+   {i0 ""}
+   {i1 ""}
+  }
+  name Switch2
+  xpos -16
+  ypos 340
+ }
+ Blur {
+  channels alpha
+  size {{soften i}}
+  name Blur2
+  xpos -16
+  ypos 368
+ }
+set N8c8f3c00 [stack 0]
+ Premult {
+  name Premult1
+  xpos 53
+  ypos 426
+ }
+push $N8c8f3c00
+ Switch {
+  inputs 2
+  which {{matteMult i}}
+  patterns {
+   {i0 ""}
+   {i1 ""}
+  }
+  name Switch3
+  xpos -16
+  ypos 470
+ }
+ Invert {
+  channels alpha
+  name Invert2
+  xpos -16
+  ypos 536
+  disable {{!parent.invertAlpha}}
+ }
+ Output {
+  name Output1
+  xpos -16
+  ypos 758
+ }
+end_group
+Dot {
+ name Dot12
+ tile_color 0xcccccc00
+ xpos -1051
+ ypos 6234
+}
+Dot {
+ inputs 0
+ name Dot6
+ xpos 379
+ ypos 4722
+}
+Dot {
+ name Dot11
+ tile_color 0xcccccc00
+ xpos 379
+ ypos 5418
+}
+set N8c949400 [stack 0]
+Copy {
+ inputs 2
+ from0 rgba.alpha
+ to0 rgba.alpha
+ name Copy1
+ xpos 345
+ ypos 6225
+}
+Dot {
+ name Dot17
+ tile_color 0x9e3c6300
+ xpos 379
+ ypos 6714
+}
+set N8c949c00 [stack 0]
+Dot {
+ name Dot18
+ tile_color 0x9e3c6300
+ xpos 654
+ ypos 6714
+}
+Dot {
+ name Dot16
+ tile_color 0x9e3c6300
+ xpos 654
+ ypos 7002
+}
+push $N8c949c00
+Retime {
+ input.first_lock true
+ input.last 120
+ input.last_lock true
+ output.first_lock true
+ output.last 60
+ speed 2
+ filter none
+ time ""
+ name Retime1
+ label "\[if \{\[value input.first_lock]\} \{knob input.first\} \{\}]\[if \{\[value input.last_lock]\} \{return \" - \"\} \{\}]\[if \{\[value input.last_lock]\} \{knob input.last\} \{\}]\\n\[if \{\[value output.first_lock]\} \{knob output.first\} \{\}]\[if \{\[value output.last_lock]\} \{return \" - \"\} \{\}]\[if \{\[value output.last_lock]\} \{knob output.last\} \{\}]"
+ xpos 345
+ ypos 6795
+}
+RIFE.gizmo {
+ name RIFE1
+ xpos 345
+ ypos 6903
+ out 60
+ timing Frame
+ timingFrame {{curve x1 1 x43 228 x119 60}}
+ outputFrame {{"\[python -execlocal n\\ =\\ nuke.thisNode()\\noutput_frame\\ =\\ nuke.expression(\\\"timing\\ ==\\ 0\\ ?\\ clamp(speed.integrate(in,\\ frame)\\ +\\ in,\\ in,\\ out)\\ :\\ timingFrame\\\")\\nuse_speed\\ =\\ n\\\[\\\"timing\\\"\\].getValue()\\ ==\\ 0\\nn\\\[\\\"timingFrame\\\"\\].setVisible(not\\ use_speed)\\nn\\\[\\\"speed\\\"\\].setVisible(use_speed)\\nn\\\[\\\"outputFrameText\\\"\\].setValue(str(round(output_frame,4)))\\nret\\ =\\ output_frame]"}}
+ skipKeyframes true
+}
+Switch {
+ inputs 2
+ which {{curve x119 0 1}}
+ patterns {
+  {i0 ""}
+  {i1 ""}
+ }
+ name Switch1
+ label "\[value which]"
+ xpos 345
+ ypos 6993
+}
+Write {
+ channels rgba
+ file D:/_Work/_Sandbox/facefussion/nuke_renders/interpolation/facefusion_interpolation_v001.####.png
+ file_type png
+ datatype "16 bit"
+ colorspace rec709
+ create_directories true
+ checkHashOnRead false
+ version 6
+ in_colorspace scene_linear
+ out_colorspace scene_linear
+ ocioColorspace scene_linear
+ display default
+ view sRGB
+ name Write6
+ xpos 345
+ ypos 7587
+}
+push $N8c7a7000
+push $N8c949400
+Grade {
+ inputs 1+1
+ white {1 0 1 1}
+ name Grade4
+ label "\[if \{ \[value mix] != 1 \} \{ return \"Mix: \[value mix]\" \} else \{ return \" \"\}]"
+ xpos -315
+ ypos 5415
+}
+Dot {
+ name Dot13
+ tile_color 0x7aa9ff00
+ xpos -281
+ ypos 5490
+}
+StickyNote {
+ inputs 0
+ name StickyNote14
+ label "<-- Set to 16 bit png\n8 bit introduces compression artifacts"
+ note_font "Verdana Bold"
+ note_font_size 12
+ xpos -952
+ ypos 4375
+}
+Dot {
+ inputs 0
+ name Dot3
+ xpos 379
+ ypos 7818
+}
+Dot {
+ name Dot2
+ tile_color 0xcccccc00
+ xpos 379
+ ypos 8946
+}
+Kronos {
+ input.last 120
+ retimedChannels all
+ timingOutputSpeed 1
+ motionEstimation Regularized
+ vectorDetailReg 0.5
+ Shutter 1
+ shutterSamples 10
+ shutterTime 0.25
+ name Kronos4
+ xpos 345
+ ypos 9129
+}
+Premult {
+ name Premult1
+ xpos 345
+ ypos 9543
+}
+Dot {
+ inputs 0
+ name Dot5
+ xpos 2194
+ ypos 4890
+}
+Dot {
+ name Dot15
+ tile_color 0xcccccc00
+ xpos 2194
+ ypos 9138
+}
+Merge2 {
+ inputs 2
+ name Merge23
+ label "Mix: \[value mix]"
+ xpos 2160
+ ypos 9537
+}
+Remove {
+ operation keep
+ channels rgb
+ name Remove11
+ label RGB
+ xpos 2160
+ ypos 9657
+}
+Write {
+ channels rgba
+ file D:/_Work/_Sandbox/facefussion/nuke_renders/comp/facefusion_comp_v001.####.png
+ file_type png
+ datatype "16 bit"
+ colorspace rec709
+ create_directories true
+ checkHashOnRead false
+ version 5
+ in_colorspace scene_linear
+ out_colorspace scene_linear
+ ocioColorspace scene_linear
+ display default
+ view sRGB
+ name Write5
+ xpos 2160
+ ypos 10131
+}
+Viewer {
+ inputs 0
+ frame 114
+ frame_range 1-120
+ input_number 5
+ colour_sample_bbox {-0.114062503 0.207812503 -0.11328125 0.208593756}
+ viewerProcess "rec709 (default)"
+ translate {0.02099999785 -0.0120000001}
+ monitorOutNDISenderName "NukeX - facefusion_v005 - Viewer1"
+ monitorOutOutputTransform "rec709 (default)"
+ name Viewer1
+ xpos 15
+ ypos 10815
+ hide_input true
+}
+StickyNote {
+ inputs 0
+ name StickyNote11
+ label "<-- Expose down and grade your matte\nmost times its not a value of 1"
+ note_font "Verdana Bold"
+ note_font_size 12
+ xpos -957
+ ypos 4783
+}
+Dot {
+ inputs 0
+ name Dot7
+ xpos 379
+ ypos 4362
+}
+Write {
+ file D:/_Work/_Sandbox/facefussion/nuke_renders/beauty/facefusion_beauty_single_v001.####.png
+ file_type png
+ datatype "16 bit"
+ colorspace rec709
+ checkHashOnRead false
+ version 3
+ in_colorspace scene_linear
+ out_colorspace scene_linear
+ ocioColorspace scene_linear
+ display default
+ view sRGB
+ name Write1
+ xpos 345
+ ypos 4467
+}
