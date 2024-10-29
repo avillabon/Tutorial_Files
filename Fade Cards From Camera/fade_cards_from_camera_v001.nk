@@ -1,0 +1,245 @@
+#! C:/Program Files/Nuke15.1v1/nuke-15.1.1.dll -nx
+version 15.1 v1
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="3838" h="2128" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="1833" stretch="1"/>
+            <splitter orientation="2">
+                <split size="1763"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="293"/>
+                <dock id="" activePageId="Viewer.2">
+                    <page id="Viewer.2"/>
+                </dock>
+                <split size="23"/>
+                <dock id=""/>
+            </splitter>
+            <split size="719"/>
+            <splitter orientation="2">
+                <split size="1598"/>
+                <dock id="" activePageId="Properties.1">
+                    <page id="Properties.1"/>
+                    <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                    <page id="uk.co.thefoundry.scripteditor.1"/>
+                </dock>
+                <split size="485"/>
+                <dock id="" activePageId="Curve Editor.1">
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="1234"/>
+            <dock id="" activePageId="DAG.1" focus="true">
+                <page id="DAG.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name D:/_Work/_Sandbox/fade_card/fade_card_v001.nk
+ frame 1001
+ first_frame 1001
+ last_frame 1100
+ lock_range true
+ format "1920 1080 0 0 1920 1080 1 HD_1080"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT scene_linear
+ monitorLut "sRGB (default)"
+ monitorOutLUT "rec709 (default)"
+ int8Lut matte_paint
+ int16Lut texture_paint
+ logLut compositing_log
+ floatLut scene_linear
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode24
+ tile_color 0xafeeee01
+ label "adjust masking to control\nthe range of the fade"
+ note_font_size 20
+ xpos -546
+ ypos -136
+ appearance Border
+ bdwidth 542
+ bdheight 319
+}
+StickyNote {
+ inputs 0
+ name StickyNote1
+ label near
+ note_font "Verdana Bold"
+ note_font_size 20
+ xpos -205
+ ypos -14
+}
+StickyNote {
+ inputs 0
+ name StickyNote2
+ label far
+ note_font "Verdana Bold"
+ note_font_size 20
+ xpos -205
+ ypos 58
+}
+Camera2 {
+ inputs 0
+ translate {0 0 {curve x1001 7.590000153 x1070 -1.224999905}}
+ name Camera12
+ xpos -30
+ ypos -558
+}
+Dot {
+ name Dot1
+ tile_color 0x641300
+ xpos -6
+ ypos -438
+}
+set N9d970000 [stack 0]
+CheckerBoard2 {
+ inputs 0
+ name CheckerBoard1
+ xpos -590
+ ypos -945
+}
+Grade {
+ white {0.2 0 0.2 0}
+ name Grade1
+ label "\[if \{ \[value mix] != 1 \} \{ return \"Mix: \[value mix]\" \} else \{ return \" \"\}]"
+ xpos -590
+ ypos -849
+}
+Card2 {
+ translate {0 0 -3}
+ uniform_scale 3
+ control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+ name Card2
+ xpos -590
+ ypos -753
+}
+Read {
+ inputs 0
+ file_type jpeg
+ file D:/_Work/_Sandbox/fade_card/rolling-smoke-over-a-black-background-free-video.jpg
+ format "3840 2160 0 0 3840 2160 1 UHD_4K"
+ origset true
+ name Read1
+ label "\[if \{\[string match \"\[value first]\[value last]\" \"\[expr \[frames \{first\}]]\[expr \[frames \{last\}]]\"]\} \{return \"\"\} \{return \"\\n(Note: FrameRange Not Same As Project Setting)\"\}]"
+ xpos -315
+ ypos -1017
+}
+Keyer {
+ operation "luminance key"
+ name Keyer1
+ xpos -315
+ ypos -879
+}
+Grade {
+ white 0.64
+ name Grade2
+ label "\[if \{ \[value mix] != 1 \} \{ return \"Mix: \[value mix]\" \} else \{ return \" \"\}]"
+ xpos -315
+ ypos -825
+}
+Card2 {
+ uniform_scale 3.8
+ control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+ name Card20
+ xpos -315
+ ypos -753
+}
+push $N9d970000
+CheckerBoard2 {
+ inputs 0
+ name CheckerBoard2
+ xpos -40
+ ypos -969
+}
+Cylinder {
+ radius 0.1
+ height 10
+ translate {-0.25 1.433733274e-07 -3.279999971}
+ rotate {90 0 0}
+ scaling {1 4 1}
+ name Cylinder1
+ xpos -40
+ ypos -753
+ disable true
+}
+Scene {
+ inputs 4
+ name Scene8
+ xpos -305
+ ypos -654
+}
+push 0
+ScanlineRender {
+ inputs 3
+ conservative_shader_sampling false
+ motion_vectors_type distance
+ name ScanlineRender6
+ xpos -315
+ ypos -441
+}
+set N9cc49000 [stack 0]
+DeepColorCorrect2 {
+ channels {rgba.red rgba.green rgba.blue mask.a}
+ gain 0
+ zmap {0 0 0.9483038246 7.363450416}
+ limit_z true
+ name DeepColorCorrect1
+ xpos -315
+ ypos -15
+}
+DeepColorCorrect2 {
+ channels {rgba.red rgba.green rgba.blue mask.a}
+ gain 0
+ zmap {0.1955506174 8.909775006 256 256}
+ limit_z true
+ name DeepColorCorrect3
+ xpos -315
+ ypos 57
+}
+DeepToImage {
+ name DeepToImage3
+ xpos -315
+ ypos 327
+}
+push $N9cc49000
+DeepSample {
+ pos {693.5 462.5}
+ name DeepSample1
+ xpos -150
+ ypos -345
+}
