@@ -1,0 +1,151 @@
+#! C:/Program Files/Nuke15.1v1/nuke-15.1.1.dll -nx
+#write_info Write1 file:"" format:"3840 2160 1" chans:":" framerange:"1001 1100" fps:"0" colorspace:"ACES - ACEScg" datatype:"16 bit half" transfer:"unknown" views:"main" colorManagement:"OCIO"
+version 15.1 v1
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="2560" h="1425" maximized="1" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="555" stretch="1"/>
+            <splitter orientation="2">
+                <split size="1365"/>
+                <dock id="" activePageId="Viewer.1">
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="15"/>
+                <dock id=""/>
+            </splitter>
+            <split size="719"/>
+            <splitter orientation="2">
+                <split size="1059"/>
+                <dock id="" activePageId="Properties.1">
+                    <page id="Properties.1"/>
+                    <page id="uk.co.thefoundry.backgroundrenderview.1"/>
+                    <page id="uk.co.thefoundry.scripteditor.1"/>
+                </dock>
+                <split size="321"/>
+                <dock id="" activePageId="Curve Editor.1">
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="1234"/>
+            <dock id="" activePageId="DAG.1" focus="true">
+                <page id="DAG.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name D:/_Work/_Sandbox/dynamicLabels/dynamicLabels_v001.nk
+ mapsize {0.03767660911 0.1110294118}
+ frame 1060
+ first_frame 1001
+ last_frame 1100
+ lock_range true
+ format "3840 2160 0 0 3840 2160 1 UHD_4K"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ OCIO_config aces_1.2
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT scene_linear
+ monitorLut "sRGB (ACES)"
+ monitorOutLUT "sRGB (ACES)"
+ int8Lut matte_paint
+ int16Lut texture_paint
+ logLut compositing_log
+ floatLut scene_linear
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode1
+ label "<font size=8>Size 8\n<font size=5>Size 5\n<font size=1>Size 1\n\n\n<font color='red'>Red\n<font color='green'>Green\n<font color='blue'>Blue\n<font color='#00FF00'>Green text using hex code</font>\n\n\n<font face='Courier'>Different font</font>\n\n\n<u>Underline</u>\n<i>Italic</i>\n<b>Bold</b>\n\n<center>Centered text</center>\n<div align='right'>Right aligned</div>\n\n<span style='background-color: red'>Highlighted text</span>\n\n"
+ note_font "Arial Black"
+ note_font_size 30
+ note_font_color 0xffffffff
+ xpos 94
+ ypos -550
+ appearance Border
+ bdwidth 582
+ bdheight 763
+}
+BackdropNode {
+ inputs 0
+ name Backdrop
+ tile_color 0x594751ff
+ label "PROJECT SETTINGS\nFrame range: \[knob root.first_frame]-\[knob root.last_frame]\nFPS: \[knob root.fps]\n\n- - - - - - - - - - - - - - - \n\nWRITE NODE SETTINGS\nChannels: \[knob Write1.channels]\nFile type: \[knob Write1.file_type]\nCompression: \[knob Write1.compression]\nColorspace: \[knob Write1.colorspace]\n"
+ note_font "Arial Black"
+ note_font_size 15
+ note_font_color 0xffffffff
+ xpos 95
+ ypos -1325
+ appearance Border
+ bdwidth 580
+ bdheight 586
+ z_order 3
+}
+Write {
+ inputs 0
+ channels rgba
+ file_type exr
+ first_part rgba
+ colorspace "ACES - ACEScg"
+ checkHashOnRead false
+ ocioColorspace scene_linear
+ display ACES
+ view sRGB
+ name Write1
+ xpos 345
+ ypos -975
+}
+Viewer {
+ frame 1060
+ frame_range 1001-1100
+ viewerProcess "sRGB (ACES)"
+ monitorOutNDISenderName "NukeX - dynamicLabels_v001 - Viewer1"
+ name Viewer1
+ xpos -755
+ ypos -585
+ hide_input true
+}
+ScanlineRender {
+ inputs 0
+ conservative_shader_sampling false
+ overscan 100
+ motion_vectors_type distance
+ name ScanlineRender1
+ xpos 1115
+ ypos -1041
+}
+StickyNote {
+ inputs 0
+ name StickyNote3
+ label "Antialiasing: \[knob ScanlineRender1.antialiasing]\nOverscan: \[knob ScanlineRender1.overscan]\nSamples: \[knob ScanlineRender1.samples]\nShutter: \[knob ScanlineRender1.shutter]"
+ note_font "Verdana Bold"
+ note_font_size 15
+ xpos 861
+ ypos -1069
+}
+StickyNote {
+ inputs 0
+ name StickyNote1
+ label "<font size=8>Size 8\n<font size=5>Size 5\n<font size=1>Size 1\n\n\n<font color='red'>Red\n<font color='green'>Green\n<font color='blue'>Blue\n<font color='#00FF00'>Green text using hex code</font>\n\n\n<font face='Courier'>Different font</font>\n\n\n<u>Underline</u>\n<i>Italic</i>\n<b>Bold</b>\n\n<center>Centered text</center>\n\n<div align='right'>Right aligned</div>\n\n<span style='background-color: red'>Highlighted text</span>\n\n"
+ note_font_size 40
+ xpos 867
+ ypos -564
+}
+StickyNote {
+ inputs 0
+ name StickyNote2
+ label "Frame range: \[knob root.first_frame]-\[knob root.last_frame]\nFPS: \[knob root.fps]"
+ note_font "Verdana Bold"
+ note_font_size 30
+ xpos 185
+ ypos -1478
+}
